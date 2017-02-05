@@ -2,7 +2,7 @@
 #pragma once
 
 #include <Windows.h>
-#include <QtWidgets/QDialog>
+#include <QtGui/QDialog>
 
 #define QT_NO_TOOLTIP
 #define QT_NO_STATUSTIP

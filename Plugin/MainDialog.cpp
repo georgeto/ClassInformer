@@ -7,7 +7,7 @@
 #include "stdafx.h"
 #include "MainDialog.h"
 
-#include <QtWidgets/QDialogButtonBox>
+#include <QtGui/QDialogButtonBox>
 
 
 MainDialog::MainDialog(BOOL &optionPlaceStructs, BOOL &optionProcessStatic, BOOL &optionOverwriteComments, BOOL &optionAudioOnDone) : QDialog(QApplication::activeWindow(), 0)

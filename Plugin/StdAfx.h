@@ -34,17 +34,17 @@
 // Qt libs
 #include <QtCore/QTextStream>
 #include <QtCore/QFile>
-#include <QtWidgets/QApplication>
-#include <QtWidgets/QProgressDialog>
-#include <QtWidgets/QLabel>
-#include <QtWidgets/QPushButton>
-#include <QtWidgets/QTableView>
-#include <QtWidgets/QHeaderView>
-#include <QtWidgets/QScrollBar>
+#include <QtGui/QApplication>
+#include <QtGui/QProgressDialog>
+#include <QtGui/QLabel>
+#include <QtGui/QPushButton>
+#include <QtGui/QTableView>
+#include <QtGui/QHeaderView>
+#include <QtGui/QScrollBar>
 // (IDA SDK)\lib\x86_win_qt
-#pragma comment(lib, "Qt5Core.lib")
-#pragma comment(lib, "Qt5Gui.lib")
-#pragma comment(lib, "Qt5Widgets.lib")
+#pragma comment(lib, "QtCore4.lib")
+#pragma comment(lib, "QtGui4.lib")
+#pragma comment(lib, "QtXml4.lib")
 
 #include <Utility.h>
 #include "undname.h"

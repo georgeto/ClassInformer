@@ -300,9 +300,9 @@ void customizeChooseWindow()
             tv->sortByColumn(3, Qt::DescendingOrder);
 
             // Resize to contents
-            tv->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+            tv->horizontalHeader()->setResizeMode(QHeaderView::ResizeToContents);
             tv->resizeColumnsToContents();
-            tv->horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
+            tv->horizontalHeader()->setResizeMode(QHeaderView::Interactive);
 
             UINT count = getTableCount();
             for (UINT row = 0; row < count; row++)
