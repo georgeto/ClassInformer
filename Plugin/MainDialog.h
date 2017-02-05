@@ -18,9 +18,9 @@ class MainDialog : public QDialog, public Ui::Dialog
 {
     Q_OBJECT
 public:
-    MainDialog(BOOL &optionPlaceStructs, BOOL &optionProcessStatic, BOOL &optionOverwriteComments, BOOL &optionAudioOnDone);
+    MainDialog(BOOL &optionPlaceStructs, BOOL &optionProcessStatic, BOOL &optionScanAllSegments, BOOL &optionOverwriteComments, BOOL &optionAudioOnDone);
 	virtual ~MainDialog(){ Q_CLEANUP_RESOURCE(QtResource); }
 };
 
 // Do main dialog, return TRUE if canceled
-BOOL doMainDialog(BOOL &optionPlaceStructs, BOOL &optionProcessStatic, BOOL &optionOverwriteComments, BOOL &optionAudioOnDone);
+BOOL doMainDialog(BOOL &optionPlaceStructs, BOOL &optionProcessStatic, BOOL &optionScanAllSegments, BOOL &optionOverwriteComments, BOOL &optionAudioOnDone);

@@ -63,6 +63,7 @@ static eaList colList;
 // Options
 BOOL optionPlaceStructs      = TRUE;
 BOOL optionProcessStatic     = TRUE;
+BOOL optionScanAllSegments   = FALSE;
 BOOL optionOverwriteComments = FALSE;
 BOOL optionAudioOnDone       = TRUE;
 
@@ -363,6 +364,7 @@ void CORE_Process(int arg)
         freeWorkingData();
         optionAudioOnDone       = TRUE;
         optionProcessStatic     = TRUE;
+        optionScanAllSegments   = FALSE;
         optionOverwriteComments = FALSE;
         optionPlaceStructs      = TRUE;
         startingFuncCount       = get_func_qty();
@@ -408,7 +410,7 @@ void CORE_Process(int arg)
             }
 
             // Do UI
-            if (doMainDialog(optionPlaceStructs, optionProcessStatic, optionOverwriteComments, optionAudioOnDone))
+            if (doMainDialog(optionPlaceStructs, optionProcessStatic, optionScanAllSegments, optionOverwriteComments, optionAudioOnDone))
             {
                 msg("- Canceled -\n\n");
                 return;
@@ -1336,10 +1338,9 @@ static BOOL findCols()
             {
                 if (segment_t *seg = getnseg(i))
                 {
-                    if (seg->type == SEG_DATA)
+                    if (seg->type == SEG_DATA || optionScanAllSegments)
                     {
-                        if (segSet.find(seg) == segSet.end())
-                        {
+                        if (segSet.find(seg) == segSet.end()) {
                             segSet.insert(seg);
                             if (scanSeg4Cols(seg))
                                 return(FALSE);
@@ -1362,7 +1363,7 @@ static BOOL findCols()
 
 
 // Locate vftables
-static BOOL scanSeg4Vftables(segment_t *seg, eaRefMap &colMap)
+static BOOL scanSeg4Vftables(segment_t *seg, eaRefMap &colMap, UINT * vftablesFound = nullptr)
 {
     char name[64];
     if (get_true_segm_name(seg, name, SIZESTR(name)) <= 0)
@@ -1411,6 +1412,9 @@ static BOOL scanSeg4Vftables(segment_t *seg, eaRefMap &colMap)
         msg(" Count: %s\n", prettyNumberString(found, numBuffer));
         refreshUI();
     }
+
+    if (vftablesFound)
+        *vftablesFound += found;
     return(FALSE);
 }
 //
@@ -1429,16 +1433,17 @@ static BOOL findVftables()
 
         // Usually in ".rdata", try first.
         std::unordered_set<segment_t *> segSet;
+        UINT vftablesFound = 0;
         if (segment_t *seg = get_segm_by_name(".rdata"))
         {
             segSet.insert(seg);
-            if (scanSeg4Vftables(seg, colMap))
+            if (scanSeg4Vftables(seg, colMap, &vftablesFound))
                 return(TRUE);
         }
 
         // And ones named ".data"
         int segCount = get_segm_qty();
-        //if (colList.empty())
+        if (!vftablesFound)
         {
             for (int i = 0; i < segCount; i++)
             {
@@ -1454,7 +1459,7 @@ static BOOL findVftables()
                                 if (strcmp(name, ".data") == 0)
                                 {
                                     segSet.insert(seg);
-                                    if (scanSeg4Vftables(seg, colMap))
+                                    if (scanSeg4Vftables(seg, colMap, &vftablesFound))
                                         return(TRUE);
                                 }
                             }
@@ -1465,13 +1470,13 @@ static BOOL findVftables()
         }
 
         // If still none found, try any remaining data type segments
-        if (colList.empty())
+        if (!vftablesFound)
         {
             for (int i = 0; i < segCount; i++)
             {
                 if (segment_t *seg = getnseg(i))
                 {
-                    if (seg->type == SEG_DATA)
+                    if (seg->type == SEG_DATA || optionScanAllSegments)
                     {
                         if (segSet.find(seg) == segSet.end())
                         {
