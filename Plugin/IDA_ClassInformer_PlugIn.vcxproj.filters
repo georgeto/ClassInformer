@@ -66,7 +66,7 @@
     <ClCompile Include="GeneratedFiles\Release64\moc_MainDialog.cpp">
       <Filter>Generated Files\Release64</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Projects\IDA Pro Work\IDA_Support\SupportLib\Utility.cpp">
+    <ClCompile Include="$(IDASUPPORT)\SupportLib\Utility.cpp">
       <Filter>Misc</Filter>
     </ClCompile>
   </ItemGroup>
@@ -93,13 +93,13 @@
     <ClInclude Include="GeneratedFiles\ui_dialog.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Projects\IDA Pro Work\IDA_Support\SupportLib\Utility.h">
+    <ClInclude Include="$(IDASUPPORT)\SupportLib\Utility.h">
       <Filter>Misc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Projects\IDA Pro Work\IDA_Support\IDA_WaitEx\WaitBoxEx.h">
+    <ClInclude Include="$(IDASUPPORT)\IDA_WaitEx\WaitBoxEx.h">
       <Filter>Custom UI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Projects\IDA Pro Work\IDA_Support\IDA_OggPlayer\IdaOgg.h">
+    <ClInclude Include="$(IDASUPPORT)\IDA_OggPlayer\IdaOgg.h">
       <Filter>Custom UI</Filter>
     </ClInclude>
   </ItemGroup>
